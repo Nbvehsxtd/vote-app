@@ -1,73 +1,66 @@
-// List of countries in English
+// Массив всех стран
 const countries = [
-    { name: "Afghanistan", votes: 0, label: "" },
-    { name: "Albania", votes: 0, label: "" },
-    { name: "Algeria", votes: 0, label: "" },
-    { name: "Andorra", votes: 0, label: "" },
-    { name: "Benin", votes: 0, label: "" },
-    { name: "Bhutan", votes: 0, label: "" },
-    { name: "Bolivia", votes: 0, label: "" },
-    { name: "Bosnia and Herzegovina", votes: 0, label: "" },
-    { name: "Botswana", votes: 0, label: "" },
-    { name: "Brazil", votes: 0, label: "" },
-    { name: "Brunei", votes: 0, label: "" },
-    { name: "Bulgaria", votes: 0, label: "" }
-    
-    
+    "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", 
+    "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", 
+    "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belgium", 
+    "Belize", "Benin", "Bermuda", "Bulgaria", "Bolivia", "Bosnia and Herzegovina", 
+    "Botswana", "Brazil", "Brunei", "Burkina Faso", "Burundi", "Bhutan", "Cabo Verde", 
+    "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", 
+    "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", 
+    "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", 
+    "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", 
+    "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", 
+    "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", 
+    "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", 
+    "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", 
+    "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea (North)", 
+    "Korea (South)", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", 
+    "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", 
+    "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", 
+    "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", 
+    "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", 
+    "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", 
+    "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", 
+    "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", 
+    "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", 
+    "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", 
+    "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", 
+    "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", 
+    "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", 
+    "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", 
+    "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", 
+    "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ];
 
-// Function to update the country list
-function updateCountryList() {
-    const countriesContainer = document.getElementById("countries");
-    countriesContainer.innerHTML = '';  // Clear current list
+// Добавление стран в выпадающий список
+const countrySelect = document.getElementById("country");
+countries.forEach(country => {
+    const option = document.createElement("option");
+    option.value = country;
+    option.text = country;
+    countrySelect.appendChild(option);
+});
 
-    // Show loading spinner
-    const spinner = document.createElement('div');
-    spinner.classList.add('spinner');
-    countriesContainer.appendChild(spinner);
+let votes = {};
 
-    // Sort countries by votes in descending order
-    countries.sort((a, b) => b.votes - a.votes);
-
-    // Remove spinner and add countries
-    setTimeout(() => {
-        spinner.remove();
-        countries.forEach((country, index) => {
-            const countryDiv = document.createElement('div');
-            countryDiv.classList.add('country');
-            countryDiv.innerHTML = `
-                <span>${country.name} - ${country.votes} votes</span>
-                <button id="vote-${index}" onclick="vote(${index})">Vote</button>
-            `;
-            countriesContainer.appendChild(countryDiv);
-        });
-    }, 1000); // Simulate loading delay
-}
-
-// Function to check if the user can vote
-function canVote() {
-    const lastVote = localStorage.getItem('lastVote');
-    if (!lastVote) return true;
-
-    const currentTime = new Date().getTime();
-    const oneHour = 60 * 60 * 1000;
-    return currentTime - lastVote > oneHour;
-}
-
-// Vote function
-function vote(index) {
-    if (!canVote()) {
-        alert("You can vote only once per hour!");
-        return;
+function submitVote() {
+    const selectedCountry = document.getElementById("country").value;
+    
+    // Увеличиваем счетчик голосов для выбранной страны
+    if (!votes[selectedCountry]) {
+        votes[selectedCountry] = 0;
     }
+    votes[selectedCountry]++;
 
-    // If voting is allowed, increase the vote count for the country
-    countries[index].votes++;
-    localStorage.setItem('lastVote', new Date().getTime());
-
-    // Update the country list
-    updateCountryList();
+    // Обновляем отображение результатов
+    displayResults();
 }
 
-// Initialize the page
-updateCountryList();
+function displayResults() {
+    let resultText = '<ul>';
+    for (let country in votes) {
+        resultText += `<li>${country}: ${votes[country]} голосов</li>`;
+    }
+    resultText += '</ul>';
+    document.getElementById("results").innerHTML = resultText;
+}
