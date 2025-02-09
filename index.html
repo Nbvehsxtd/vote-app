@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Голосование</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .country-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .country-item {
+            margin: 10px 0;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Голосование по странам</h1>
+    <ul class="country-list" id="countryList">
+        <li class="country-item">
+            <span>Россия</span>
+            <button onclick="vote('Россия')">Голосовать</button>
+        </li>
+        <li class="country-item">
+            <span>США</span>
+            <button onclick="vote('США')">Голосовать</button>
+        </li>
+        <li class="country-item">
+            <span>Китай</span>
+            <button onclick="vote('Китай')">Голосовать</button>
+        </li>
+        <li class="country-item">
+            <span>Индия</span>
+            <button onclick="vote('Индия')">Голосовать</button>
+        </li>
+        <li class="country-item">
+            <span>Япония</span>
+            <button onclick="vote('Япония')">Голосовать</button>
+        </li>
+    </ul>
+
+    <h2>Результаты голосования:</h2>
+    <ul id="results"></ul>
+
+    <script>
+        let votes = {
+            "Россия": 0,
+            "США": 0,
+            "Китай": 0,
+            "Индия": 0,
+            "Япония": 0
+        };
+
+        function vote(country) {
+            votes[country]++;
+            displayResults();
+        }
+
+        function displayResults() {
+            const resultsElement = document.getElementById('results');
+            resultsElement.innerHTML = '';
+            for (const country in votes) {
+                const li = document.createElement('li');
+                li.textContent = `${country}: ${votes[country]} голосов`;
+                resultsElement.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>
