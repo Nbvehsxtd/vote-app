@@ -1,88 +1,50 @@
-/* Общие стили */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
     text-align: center;
 }
 
-/* Заголовок */
-h1 {
-    font-size: 3rem;
-    color: #2c3e50;
-    margin-bottom: 30px;
+form {
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-/* Контейнер для списка стран */
-#countries {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Стили для блока каждой страны */
-.country {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    margin: 5px 0;
-    background-color: #ecf0f1;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-/* При наведении на страну */
-.country:hover {
-    background-color: #dfe6e9;
-    transform: scale(1.05);
-}
-
-/* Стиль для кнопок голосования */
-.country button {
-    background-color: #3498db;
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
     color: white;
-    padding: 8px 16px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Эффект при наведении на кнопку */
-.country button:hover {
-    background-color: #2980b9;
-    transform: scale(1.05);
+button:hover {
+    background-color: #45a049;
 }
 
-/* Эффект для выключенной кнопки */
-.country button:disabled {
-    background-color: #bdc3c7;
-    cursor: not-allowed;
-}
-
-/* Стиль для спиннера */
-.spinner {
+h2 {
+    text-align: center;
     margin-top: 20px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+#results {
+    text-align: center;
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
 }
