@@ -64,3 +64,4 @@ function displayResults() {
     resultText += '</ul>';
     document.getElementById("results").innerHTML = resultText;
 }
+
