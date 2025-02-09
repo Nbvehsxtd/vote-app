@@ -1,23 +1,30 @@
-    </li>
-    <li>
-      <span>Китай</span>
-      <button class="vote-button" onclick="vote('Китай')">Голосовать</button>
-      <span id="vote-count-china" class="vote-count">0</span>
-    </li>
-    <!-- Добавь больше стран по своему усмотрению -->
-  </ul>
-
-  <script>
-    let votes = {
-      'США': 0,
-      'Россия': 0,
-      'Китай': 0
-    };
-
-    function vote(country) {
-      votes[country]++;
-      document.getElementById('vote-count-' + country.toLowerCase()).textContent = votes[country];
-    }
-  </script>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .country {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .country button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .country button:disabled {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vote for Countries</h1>
+    <div id="countries"></div>
+    <script src="script.js"></script>
 </body>
 </html>
